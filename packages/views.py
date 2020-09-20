@@ -48,23 +48,14 @@ class PackageDetails(APIView):
             self.update_depends_on_list(package, 'reverse_depends', dependency_url_list)
         return Response(package)
 
-    def extract_and_create_urls(self, depends_list):
+    def extract_and_create_urls(self, dependencies_list):
         result = []
-        for depends in depends_list:
-            package_name = depends.split(' (')[0]
-            urla = reverse('details', kwargs={'slug': slugify(package_name)})
-            package_url = f"http://{self.request.META['HTTP_HOST']}{urla}"
+        for dependency in dependencies_list:
+            package_name = dependency.split(' (')[0]
+            slug_url = reverse('details', kwargs={'slug': slugify(package_name)})
+            package_url = f"http://{self.request.META['HTTP_HOST']}{slug_url}"
             result.append(package_url)
         return result
 
-    def update_depends_on_list(self, package, which_dependency, list):
-        package['details'][which_dependency] = list
-
-
-    def get_depends_link(self, packages, slug):
-        for pkg in packages:
-            dependencies = pkg.get('details', {}).get('depends', '')
-            print(dependencies)
-            if pkg['name'] == slug:
-                package_name = list(pkg.values())[0]
-                return f"http://{self.request.META['HTTP_HOST']}{self.request.path}{package_name}"
+    def update_depends_on_list(self, package, which_dependency, dependencies_list):
+        package['details'][which_dependency] = dependencies_list
