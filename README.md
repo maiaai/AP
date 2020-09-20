@@ -10,6 +10,6 @@ For use of this API you need to perform next steps:
 4. The root url is : "http://localhost:{port}/api/packages/"
 5. Browsable api is included. To navigate between the packages, type:
   * "http://localhost:{port}/api/packages/" should be used to list all packages.
-  * "http://localhost:{port}/api/packages/{package-name}" to get data for the selected package. 
+  * "http://localhost:{port}/api/packages/{package-name}" to get details data for the selected package. 
 
 6. Other option is to use Postman or CURL to make requests.
