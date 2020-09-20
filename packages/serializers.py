@@ -1,3 +1,4 @@
+from django.utils.text import slugify
 from rest_framework import serializers
 
 
@@ -11,7 +12,8 @@ class PackagesListSerializer(serializers.Serializer):
 
     def get_link(self, obj):
         package_name = list(obj.values())[0]
-        return f"http://{self.request.META['HTTP_HOST']}{self.request.path}{package_name}"
+        slugified_package_name = slugify(package_name)
+        return f"http://{self.request.META['HTTP_HOST']}{self.request.path}{slugified_package_name}"
 
 
 class PackageDetailsSerializer(serializers.Serializer):
